@@ -1,0 +1,7 @@
+name 'pris'
+maintainer 'David Schlenk'
+maintainer_email 'dschlenk@convergeone.com'
+license 'apache2'
+description 'Installs/Configures opennms-pris'
+long_description 'Installs/Configures opennms-pris'
+version '0.1.0'

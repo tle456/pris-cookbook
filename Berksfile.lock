@@ -1,0 +1,11 @@
+DEPENDENCIES
+  java
+  opennms-pris
+    path: .
+    metadata: true
+
+GRAPH
+  apt (2.9.2)
+  java (1.36.0)
+    apt (>= 0.0.0)
+  opennms-pris (0.1.0)
