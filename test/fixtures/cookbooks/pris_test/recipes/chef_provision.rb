@@ -1,3 +1,4 @@
+require 'rest-client'
 log 'start opennms' do
   notifies :start, 'service[opennms]', :immediately
 end
@@ -14,6 +15,9 @@ opennms_import req
     foreign_id host
     managed true
     snmp_primary 'P'
-    sync_import true if index == 2
+    sync_import true
   end
 end
+
+# make sure they're synced
+RestClient.put('http://admin:admin@localhost:8980/opennms/rest/requisitions/localhosts/import', nil)

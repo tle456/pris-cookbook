@@ -1,9 +1,10 @@
 require 'spec_helper'
 require 'helpers'
+require 'rexml/document'
 
 describe 'file source based requisition name \'foo\'' do
   let(:contents) do
-<<-EOL
+    input = <<-EOL
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model-import xmlns="http://xmlns.opennms.org/xsd/config/model-import" foreign-source="default">
     <node node-label="router1" foreign-id="1351706322157649000">
@@ -38,7 +39,10 @@ describe 'file source based requisition name \'foo\'' do
     </node>
 </model-import>
 EOL
- 
+    doc = REXML::Document.new(input)
+    output = ""
+    doc.write output
+    output
   end
 
   describe service('opennms-pris') do
@@ -51,7 +55,7 @@ EOL
 
   describe 'requisition contents' do
     it 'is accurate' do
-      expect(requisition('foo').to_str).to eq contents 
+      expect(requisition('foo')).to eq contents 
     end
   end
 end

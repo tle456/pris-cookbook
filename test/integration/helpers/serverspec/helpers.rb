@@ -1,4 +1,5 @@
 require 'rest-client'
+require 'rexml/document'
 
 module Helpers
 
@@ -7,7 +8,12 @@ module Helpers
   end
 
   def requisition(name)
-    RestClient.get("#{baseurl}/#{name}")
+    doc = REXML::Document.new(RestClient.get("#{baseurl}/#{name}").to_str)
+    doc.root.attributes.delete 'date-stamp'
+    doc.root.attributes.delete 'last-import'
+    output = ""
+    doc.write output
+    output
   end
 end
 
