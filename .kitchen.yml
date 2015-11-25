@@ -9,6 +9,18 @@ platforms:
   - name: centos-6.6
 
 suites:
+  - name: default
+    run_list:
+      - recipe[java::default]
+      - recipe[pris_test::file_source]
+      - recipe[pris_test::http_source]
+      - recipe[pris_test::jdbc_source]
+      - recipe[pris_test::merge_source]
+      - recipe[pris_test::script_source]
+      - recipe[pris_test::xls_source]
+    attributes:
+      java: 
+        jdk_version: 7
   - name: file_source
     run_list:
       - recipe[java::default]
