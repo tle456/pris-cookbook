@@ -1,11 +1,15 @@
 DEPENDENCIES
   java
-  opennms-pris
+  pris
     path: .
     metadata: true
+  pris_test
+    path: test/fixtures/cookbooks/pris_test
 
 GRAPH
   apt (2.9.2)
   java (1.36.0)
     apt (>= 0.0.0)
-  opennms-pris (0.1.0)
+  pris (0.1.0)
+  pris_test (0.1.0)
+    pris (>= 0.0.0)

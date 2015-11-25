@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: pris
-# Resource:: requisition
+# Cookbook Name: pris
+# Resource: requisition
 #
 # Copyright (c) 2015 ConvergeOne Holdings Corp.
 # 

@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: pris
-# Resource:: scriptstep
+# Cookbook Name: pris
+# Resource: scriptstep
 #
 # Copyright (c) 2015 ConvergeOne Holdings Corp.
 # 
@@ -21,4 +21,6 @@ actions :create, :delete, :create_if_missing
 default_action :create
 
 attribute :name, :kind_of => String, :name_attribute => true
-attribute :resource_name, :kind_of => String, :required => true
+attribute :requisition_name, :kind_of => String, :required => true
+
+attr_accessor :exists, :requisition_exists

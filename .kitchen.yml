@@ -9,10 +9,45 @@ platforms:
   - name: centos-6.6
 
 suites:
-  - name: default
+  - name: file_source
     run_list:
       - recipe[java::default]
-      - recipe[opennms-pris::default]
+      - recipe[pris_test::file_source]
+    attributes:
+      java: 
+        jdk_version: 7
+  - name: http_source
+    run_list:
+      - recipe[java::default]
+      - recipe[pris_test::http_source]
+    attributes:
+      java: 
+        jdk_version: 7
+  - name: jdbc_source
+    run_list:
+      - recipe[java::default]
+      - recipe[pris_test::jdbc_source]
+    attributes:
+      java: 
+        jdk_version: 7
+  - name: merge_source
+    run_list:
+      - recipe[java::default]
+      - recipe[pris_test::merge_source]
+    attributes:
+      java: 
+        jdk_version: 7
+  - name: script_source
+    run_list:
+      - recipe[java::default]
+      - recipe[pris_test::script_source]
+    attributes:
+      java: 
+        jdk_version: 7
+  - name: xls_source
+    run_list:
+      - recipe[java::default]
+      - recipe[pris_test::xls_source]
     attributes:
       java: 
         jdk_version: 7

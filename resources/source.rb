@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: pris
-# Resource:: source
+# Cookbook Name: pris
+# Resource: source
 #
 # Copyright (c) 2015 ConvergeOne Holdings Corp.
 # 
@@ -21,7 +21,7 @@ actions :create, :delete, :create_if_missing
 default_action :create
 
 attribute :name, :kind_of => String, :name_attribute => true
-attribute :resource_name, :kind_of => String, :required => true
+attribute :requisition_name, :kind_of => String, :required => true
 attribute :type, :kind_of => String, :equal_to => [
   'file', 'http', 'jdbc', 'merge', 'script', 'xls', 'ocs.computers',
   'ocs.devices'], :default => 'file'
@@ -29,4 +29,4 @@ attribute :type, :kind_of => String, :equal_to => [
 # See PRIS docs for details.
 attribute :params, :kind_of => Hash, :default => {}
 
-attr_accessor :exists, :resource_exists, :changed
+attr_accessor :exists, :requisition_exists, :changed

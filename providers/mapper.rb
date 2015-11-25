@@ -1,5 +1,5 @@
 # Cookbook Name: pris
-# Provider: scriptstep
+# Provider: mapper
 #
 # Copyright (c) 2015 ConvergeOne Holdings Corp.
 # 
@@ -24,18 +24,19 @@ use_inline_resources
 action :create do
   if @current_resource.exists
     Chef::Log.info "#{@new_resource} already exists - checking for changes."
-    updated = update_script_file
-    if updated
-      converge_by("Update #{ @new_resource }") do
+    if @current_resource.changed
+      Chef::Log.info "#{@new_resource} has changed - updating."
+      converge_by("Update #{@new_resource}") do
+        add_mapper # same as adding
         new_resource.updated_by_last_action(true)
       end
     else
-      new_resource.updated_by_last_action(false)
+      Chef::Log.info "#{@new_resource} has not changed - nothing to do."
     end
   else
     Chef::Log.info "#{@new_resource} does not exist - creating."
-    converge_by("Create #{ @new_resource}") do
-      add_scriptstep
+    converge_by("Create #{@new_resource}") do
+      add_mapper
       new_resource.updated_by_last_action(true)
     end
   end
@@ -44,8 +45,8 @@ end
 action :delete do
   if @current_resource.exists
     Chef::Log.info "#{@new_resource} exists - deleting."
-    converge_by("Delete #{ @new_resource}") do
-      delete_scriptstep
+    converge_by("Delete #{@new_resource}") do
+      delete_mapper
       new_resource.updated_by_last_action(true)
     end
   else
@@ -57,8 +58,8 @@ action :create_if_missing do
   if @current_resource.exists
     Chef::Log.info "#{@new_resource} already exists - nothing to do."
   else
-    converge_by("Create #{ @new_resource}") do
-      add_scriptstep
+    converge_by("Create #{@new_resource}") do
+      add_mapper
       new_resource.updated_by_last_action(true)
     end
   end
@@ -69,35 +70,29 @@ def pris
 end
 
 def load_current_resource
-  @current_resource = Chef::Resource::PrisScriptstep.new(@new_resource.name)
-  @current_resource.name(@new_resource.name)
+  @current_resource = Chef::Resource::PrisMapper.new(@new_resource.name)
   @current_resource.requisition_name(@new_resource.requisition_name)
+  @current_resource.type(@new_resource.type)
+  @current_resource.params(@new_resource.params)
 
   if pris.requisition_exists?(@current_resource.requisition_name)
     @current_resource.requisition_exists = true
-    if pris.scriptstep_exists?(@current_resource.name, @current_resource.requisition_name)
+    if pris.mapper_exists?(@current_resource.type, @current_resource.requisition_name)
       @current_resource.exists = true
+      if pris.mapper_changed?(@current_resource.requisition_name, @current_resource.type, @current_resource.params)
+        @current_resource.changed = true
+      end
     end
   end
 end
 
 private
 
-def add_source
-  pris.add_requisition_scriptstep(new_resource.name, new_resource.requisition_name)
+
+def add_mapper
+  pris.add_requisition_mapper(new_resource.requisition_name, new_resource.type, new_resource.params)
 end
 
-def delete_source
-  pris.delete_requisition_scriptstep(new_resource.name, new_resource.requisition_name)
-end
-
-def update_script_file
-  f = cookbook_file script_file_path(new_resource.name) do
-    action :create
-    source new_resource.name
-    owner 'root'
-    group 'root'
-    mode 00644
-  end
-  f.updated_by_last_action?
+def delete_mapper
+  pris.delete_requisition_mapper(new_resource.requisition_name, new_resource.params)
 end

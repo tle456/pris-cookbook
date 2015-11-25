@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model-import foreign-source="default" xmlns="http://xmlns.opennms.org/xsd/config/model-import">
+  <node node-label="router1" foreign-id="1351706322157649000">
+        <interface status="1" snmp-primary="P" ip-addr="10.10.0.2" descr="">
+              <monitored-service service-name="ICMP"/>
+              <monitored-service service-name="SNMP"/>
+        </interface>
+     </node>
+     <node node-label="router2" foreign-id="1351706322158209000">
+        <interface status="1" snmp-primary="P" ip-addr="10.10.0.3" descr="">
+              <monitored-service service-name="ICMP"/>
+              <monitored-service service-name="SNMP"/>
+        </interface>
+     </node>
+     <node node-label="router3" foreign-id="1351706322158745000">
+        <interface status="1" snmp-primary="P" ip-addr="10.10.0.4" descr="">
+              <monitored-service service-name="ICMP"/>
+              <monitored-service service-name="SNMP"/>
+        </interface>
+     </node>
+     <node node-label="router4" foreign-id="1351706322159276000">
+        <interface status="1" snmp-primary="P" ip-addr="10.10.0.5" descr="">
+              <monitored-service service-name="ICMP"/>
+              <monitored-service service-name="SNMP"/>
+        </interface>
+     </node>
+     <node node-label="router5" foreign-id="1351706322159854000">
+        <interface status="1" snmp-primary="P" ip-addr="10.10.0.6" descr="">
+              <monitored-service service-name="ICMP"/>
+              <monitored-service service-name="SNMP"/>
+        </interface>
+     </node>
+</model-import>

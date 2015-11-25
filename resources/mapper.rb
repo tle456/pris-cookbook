@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: pris
-# Resource:: mapper
+# Cookbook Name: pris
+# Resource: mapper
 #
 # Copyright (c) 2015 ConvergeOne Holdings Corp.
 # 
@@ -21,11 +21,11 @@ actions :create, :delete, :create_if_missing
 default_action :create
 
 attribute :name, :kind_of => String, :name_attribute => true
-attribute :resource_name, :kind_of => String, :required => true
+attribute :requisition_name, :kind_of => String, :required => true
 attribute :type, :kind_of => String, :equal_to => ['echo', 'null',
   'ocs.computers', 'ocs.devices', 'script'], :default => 'echo'
 # key / value string pairs that vary by type and are often required.
 # See PRIS documentation.
 attribute :params, :kind_of => Hash, :default => {}
 
-attr_accessor :exists, :resource_exists, :changed
+attr_accessor :exists, :requisition_exists, :changed
