@@ -11,7 +11,7 @@ pris_source 'foobar' do
     'source.A.url' => 'http://localhost:8000/requisitions/foo',
     'source.A.keepAll' => 'false',
     'source.B.url' => 'http://localhost:8000/requisitions/foohttp',
-    'source.B.keepAll' => 'false'
+    'source.B.keepAll' => 'true'
   )
 end
 
