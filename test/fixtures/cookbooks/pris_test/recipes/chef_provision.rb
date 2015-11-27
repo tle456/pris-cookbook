@@ -20,4 +20,8 @@ opennms_import req
 end
 
 # make sure they're synced
-RestClient.put('http://admin:admin@localhost:8980/opennms/rest/requisitions/localhosts/import', nil)
+ruby_block 'sync import' do
+  block do
+    RestClient.put('http://admin:admin@localhost:8980/opennms/rest/requisitions/localhosts/import', nil)
+  end
+end
