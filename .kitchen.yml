@@ -4,62 +4,53 @@ driver:
 
 provisioner:
   name: chef_zero
+  require_chef_omnibus:  13.10.0
 
 platforms:
-  - name: centos-6.6
-
+  - name: centos-6.8
+    attributes:
+      yum:
+        base:
+          baseurl: http://archive.kernel.org/centos-vault/6.8/os/x86_64/
+        extras:
+          baseurl: http://archive.kernel.org/centos-vault/6.8/extras/x86_64/
+        updates:
+          baseurl: http://archive.kernel.org/centos-vault/6.8/updates/x86_64/
+  - name: centos-7.8
+  
 suites:
   - name: default
     run_list:
+      - recipe[yum-centos-ct::default]
       - recipe[java::default]
-      - recipe[pris_test::file_source]
-      - recipe[pris_test::http_source]
-      - recipe[pris_test::jdbc_source]
-      - recipe[pris_test::merge_source]
-      - recipe[pris_test::script_source]
-      - recipe[pris_test::xls_source]
-    attributes:
-      java: 
-        jdk_version: 7
+      - recipe[pris::default]
+      # - recipe[pris_test::file_source]
+      # - recipe[pris_test::http_source]
+      # - recipe[pris_test::jdbc_source]
+      # - recipe[pris_test::merge_source]
+      # - recipe[pris_test::script_source]
+      # - recipe[pris_test::xls_source]
   - name: file_source
     run_list:
       - recipe[java::default]
       - recipe[pris_test::file_source]
-    attributes:
-      java: 
-        jdk_version: 7
   - name: http_source
     run_list:
       - recipe[java::default]
       - recipe[pris_test::http_source]
-    attributes:
-      java: 
-        jdk_version: 7
   - name: jdbc_source
     run_list:
       - recipe[java::default]
       - recipe[pris_test::jdbc_source]
-    attributes:
-      java: 
-        jdk_version: 7
   - name: merge_source
     run_list:
       - recipe[java::default]
       - recipe[pris_test::merge_source]
-    attributes:
-      java: 
-        jdk_version: 7
   - name: script_source
     run_list:
       - recipe[java::default]
       - recipe[pris_test::script_source]
-    attributes:
-      java: 
-        jdk_version: 7
   - name: xls_source
     run_list:
       - recipe[java::default]
       - recipe[pris_test::xls_source]
-    attributes:
-      java: 
-        jdk_version: 7
