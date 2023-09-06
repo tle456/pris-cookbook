@@ -7,11 +7,7 @@ if defined?(ChefSpec)
     ChefSpec::Matchers::ResourceMatcher.new(:pris_requisition, :delete, name)
   end
 
-  def create_pris_source(name)
-    ChefSpec::Matchers::ResourceMatcher.new(:pris_source, :create, name)
-  end
-
-  def create_pris_mapper(name)
-    ChefSpec::Matchers::ResourceMatcher.new(:pris_mapper, :create, name)
+  def create_if_missing_pris_requisition(name)
+    ChefSpec::Matchers::ResourceMatcher.new(:pris_requisition, :create_if_missing, name)
   end
 end
