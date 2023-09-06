@@ -1,6 +1,6 @@
 default[:pris][:home] = '/opt/opennms-pris'
-default[:pris][:version] = '1.1.4'
-default[:pris][:archive] = "opennms-pris-dist-#{node[:pris][:version]}-release-archive.tar.gz"
+default[:pris][:version] = '2.0.0-b1051'
+default[:pris][:archive] = "opennms-pris-release-#{node[:pris][:version]}.tar.gz"
 default[:pris][:download_url] = "https://github.com/OpenNMS/opennms-provisioning-integration-server/releases/download/#{node[:pris][:version]}/#{node[:pris][:archive]}"
 # until PRIS-132
 default[:pris][:service_url] = "https://raw.githubusercontent.com/dschlenk/opennms-provisioning-integration-server/PRIS-132/opennms-pris-dist/src/main/resources/opennms-pris.service"
