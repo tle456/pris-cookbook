@@ -8,4 +8,3 @@ version '1.0.0'
 chef_version '>= 13.0'
 
 supports 'centos'
-depends 'java', '= 8.4.0'
