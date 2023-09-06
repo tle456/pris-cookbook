@@ -1,0 +1,10 @@
+name: pris
+title: OpenNMS PRIS Profile
+maintainer: David Schlenk
+copyright: ConvergeOne
+copyright_email: dschlenk@convergeone.com
+license: Apache 2.0
+summary: Verify OpenNMS PRIS is installed, configured and running correctly.
+version: 1.0.0
+supports:
+  - os-family: redhat

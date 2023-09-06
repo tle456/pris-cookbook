@@ -1,33 +1,43 @@
 DEPENDENCIES
-  java
-  opennms
+  java (~> 8.4.0)
+  line (= 1.2.1)
+  postgresql (~> 7.1.5)
   pris
     path: .
     metadata: true
+  pris_java
+    path: test/fixtures/cookbooks/pris_java
   pris_test
     path: test/fixtures/cookbooks/pris_test
+  seven_zip (~> 3.2)
+  yum-centos-ct
+    path: test/fixtures/cookbooks/yum-centos-ct
 
 GRAPH
-  apt (2.9.2)
-  build-essential (2.2.4)
-  chef-sugar (3.1.1)
-  hostsfile (2.4.5)
-  java (1.36.0)
-    apt (>= 0.0.0)
-  opennms (16.1.2)
+  build-essential (8.2.1)
+    mingw (>= 1.1)
+    seven_zip (>= 0.0.0)
+  hostsfile (3.0.1)
+  java (8.4.0)
+    line (>= 0.0.0)
+  line (1.2.1)
+  mingw (2.1.8)
+    seven_zip (>= 0.0.0)
+  opennms (28.1.0)
     build-essential (>= 0.0.0)
     hostsfile (>= 0.0.0)
+    openssl (>= 0.0.0)
+    postgresql (>= 0.0.0)
+  openssl (8.5.5)
+  postgresql (7.1.9)
+  pris (1.0.0)
+  pris_java (0.1.0)
     java (>= 0.0.0)
-    yum (>= 0.0.0)
-  openssl (4.4.0)
-    chef-sugar (>= 3.1.1)
-  postgresql (3.4.21)
-    apt (>= 1.9.0)
-    build-essential (>= 0.0.0)
-    openssl (~> 4.0)
-  pris (0.1.0)
   pris_test (0.1.0)
     opennms (>= 0.0.0)
     postgresql (>= 0.0.0)
     pris (>= 0.0.0)
-  yum (3.8.2)
+  seven_zip (3.2.0)
+    windows (>= 0.0.0)
+  windows (7.0.2)
+  yum-centos-ct (0.1.0)

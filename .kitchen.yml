@@ -18,18 +18,18 @@ platforms:
           baseurl: http://archive.kernel.org/centos-vault/6.8/updates/x86_64/
   - name: centos-7.8
   
+verifier:
+  name: inspec
+
 suites:
   - name: default
     run_list:
       - recipe[yum-centos-ct::default]
       - recipe[java::default]
       - recipe[pris::default]
-      # - recipe[pris_test::file_source]
-      # - recipe[pris_test::http_source]
-      # - recipe[pris_test::jdbc_source]
-      # - recipe[pris_test::merge_source]
-      # - recipe[pris_test::script_source]
-      # - recipe[pris_test::xls_source]
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
   - name: file_source
     run_list:
       - recipe[java::default]
