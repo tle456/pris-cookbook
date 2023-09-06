@@ -15,9 +15,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-chef_gem 'java-properties' do
-  compile_time true
-end
+
+# chef_gem 'java-properties' do
+#  compile_time true
+# end
+
+app_home = node[:pris][:home]
 
 filename = "#{Chef::Config['file_cache_path']}/#{node[:pris][:archive]}"
 remote_file filename do
@@ -27,19 +30,19 @@ remote_file filename do
   mode 00644
 end
 
-directory node[:pris][:home] do
+directory app_home do
   owner 'root'
   group 'root'
   mode 00755
 end
 
 bash 'extract tarball' do
-  code "tar -zxvf #{filename} --strip 1 && touch #{node[:pris][:home]}/configured"
-  cwd node[:pris][:home]
-  not_if{ File.exists?("#{node[:pris][:home]}/configured") }
+  code "tar -zxvf #{filename} --strip 1 && touch #{app_home}/configured"
+  cwd app_home
+  not_if{ File.exists?("#{app_home}/configured") }
 end
 
-template "#{node[:pris][:home]}/global.properties" do
+template "#{app_home}/global.properties" do
   source 'global.properties.erb'
   owner 'root'
   group 'root'
@@ -51,18 +54,35 @@ template "#{node[:pris][:home]}/global.properties" do
   )
 end
 
-if platform_family?('rhel') && (Chef::VersionConstraint.new("~> 5.0").include?(node[:platform_version]) || Chef::VersionConstraint.new("~> 6.0").include?(node[:platform_version]))
-  remote_file "Copy opennms-pris service file" do
-    path '/etc/init.d/opennms-pris'
-    source node[:pris][:service_url]
-    owner 'root'
-    group 'root'
-    mode 00755
-  end
-  if node[:pris][:global][:driver] == 'http'
-    service 'opennms-pris' do
-      supports :status => true, :restart => false, :reload => false
-      action [:enable, :start]
-    end
-  end
+template '/etc/systemd/system/opennms-pris.service' do
+  source 'opennms-pris.service.erb'
+  owner 'root'
+  group 'root'
+  mode 00755
+  variables(
+    app_home: app_home
+  )
+  notifies :run, 'execute[systemctl-daemon-reload]', :immediately
+  not_if { node['platform_version'].to_i < 7 }
 end
+
+template '/etc/init.d/opennms-pris' do
+  source 'opennms-pris-v6.service.erb'
+  owner 'root'
+  group 'root'
+  mode 00755
+  variables(
+    app_home: app_home
+  )
+  only_if { node['platform_version'].to_i < 7 }
+end
+
+execute 'systemctl-daemon-reload' do
+  command 'systemctl daemon-reload'
+  action :nothing
+end
+
+service 'opennms-pris' do
+  action [:enable, :start]
+end
+
