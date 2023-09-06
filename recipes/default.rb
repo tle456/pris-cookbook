@@ -15,9 +15,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-chef_gem 'java-properties' do
-  compile_time true
-end
+
+# chef_gem 'java-properties' do
+#  compile_time true
+# end
 
 filename = "#{Chef::Config['file_cache_path']}/#{node[:pris][:archive]}"
 remote_file filename do
