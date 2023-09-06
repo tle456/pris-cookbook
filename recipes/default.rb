@@ -51,18 +51,32 @@ template "#{node[:pris][:home]}/global.properties" do
   )
 end
 
-if platform_family?('rhel') && (Chef::VersionConstraint.new("~> 5.0").include?(node[:platform_version]) || Chef::VersionConstraint.new("~> 6.0").include?(node[:platform_version]))
-  remote_file "Copy opennms-pris service file" do
-    path '/etc/init.d/opennms-pris'
-    source node[:pris][:service_url]
-    owner 'root'
-    group 'root'
-    mode 00755
-  end
-  if node[:pris][:global][:driver] == 'http'
-    service 'opennms-pris' do
-      supports :status => true, :restart => false, :reload => false
-      action [:enable, :start]
-    end
-  end
+template '/etc/systemd/system/opennms-pris.service' do
+  source 'opennms-pris.service.erb'
+  owner 'root'
+  group 'root'
+  mode 00755
+  variables(
+    app_home: node[:pris][:home]
+  )
+  notifies :run, 'execute[systemctl-daemon-reload]', :immediately
+  not_if { node['platform_version'].to_i < 7 }
 end
+
+template '/etc/init.d/opennms-pris' do
+  source 'opennms-pris-v6.service.erb'
+  owner 'root'
+  group 'root'
+  mode 00755
+  only_if { node['platform_version'].to_i < 7 }
+end
+
+execute 'systemctl-daemon-reload' do
+  command 'systemctl daemon-reload'
+  action :nothing
+end
+
+service 'opennms-pris' do
+  action [:enable, :start]
+end
+
