@@ -2,7 +2,7 @@ source 'https://supermarket.chef.io'
 
 metadata
 group :test do
-  cookbook 'java'
+  cookbook 'java', '~> 8.4'
   cookbook 'pris_test', path: 'test/fixtures/cookbooks/pris_test'
   cookbook 'line', '= 1.2.1'
   cookbook 'postgresql', '~> 7.1.5'
