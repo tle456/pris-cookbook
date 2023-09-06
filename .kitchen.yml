@@ -25,32 +25,38 @@ suites:
   - name: default
     run_list:
       - recipe[yum-centos-ct::default]
-      - recipe[java::default]
+      - recipe[pris_java::default]
       - recipe[pris::default]
     verifier:
       inspec_tests:
         - path: test/integration/default
   - name: file_source
     run_list:
-      - recipe[java::default]
+      - recipe[yum-centos-ct::default]
+      - recipe[pris_java::default]
       - recipe[pris_test::file_source]
   - name: http_source
     run_list:
-      - recipe[java::default]
+      - recipe[yum-centos-ct::default]
+      - recipe[pris_java::default]
       - recipe[pris_test::http_source]
   - name: jdbc_source
     run_list:
-      - recipe[java::default]
+      - recipe[yum-centos-ct::default]
+      - recipe[pris_java::default]
       - recipe[pris_test::jdbc_source]
   - name: merge_source
     run_list:
-      - recipe[java::default]
+      - recipe[yum-centos-ct::default]
+      - recipe[pris_java::default]
       - recipe[pris_test::merge_source]
   - name: script_source
     run_list:
-      - recipe[java::default]
+      - recipe[yum-centos-ct::default]
+      - recipe[pris_java::default]
       - recipe[pris_test::script_source]
   - name: xls_source
     run_list:
-      - recipe[java::default]
+      - recipe[yum-centos-ct::default]
+      - recipe[pris_java::default]
       - recipe[pris_test::xls_source]
