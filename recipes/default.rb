@@ -71,6 +71,9 @@ template '/etc/init.d/opennms-pris' do
   owner 'root'
   group 'root'
   mode 00755
+  variables(
+    app_home: app_home
+  )
   only_if { node['platform_version'].to_i < 7 }
 end
 
