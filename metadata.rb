@@ -4,4 +4,7 @@ maintainer_email 'dschlenk@convergeone.com'
 license 'apache2'
 description 'Installs/Configures opennms-pris'
 long_description 'Installs/Configures opennms-pris'
-version '0.1.0'
+version '1.0.0'
+chef_version '>= 13.0'
+
+supports 'centos'

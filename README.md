@@ -4,8 +4,8 @@ This cookbook installs [OpenNMS PRIS](https://github.com/OpenNMS/opennms-provisi
 
 Requirements
 ------------
- - CentOS 6
- - Java
+ - CentOS 6 OR CentOS 7
+ - Java 11
 
 Recipes
 -------
