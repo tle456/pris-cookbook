@@ -1,20 +1,15 @@
-include_recipe 'pris::default'
+include_recipe "pris::default"
 
-pris_requisition 'fooxls'
-
-cookbook_file "#{node[:pris][:home]}/requisitions/fooxls/myInventory.xls" do
-  source 'myInventory.xls'
+pris_requisition 'create myRouter' do
+  action :create
+  requisition_name 'myRouter'
+  source 'xls'
+  source_properties 'file' => "../myInventory.xls"
 end
 
-pris_source 'foobar' do
-  requisition_name 'fooxls'
-  type 'xls'
-  params(
-    'source.file' => 'myInventory.xls'
-  )
-end
-
-pris_mapper 'foobar' do
-  requisition_name 'fooxls'
-  type 'echo'
+pris_requisition 'create myServer' do
+  action :create
+  requisition_name 'myServer'
+  source 'xls'
+  source_properties 'file' => "../myInventory.xls"
 end

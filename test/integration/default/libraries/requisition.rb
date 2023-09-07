@@ -16,20 +16,23 @@ class PrisRequisition < Inspec.resource(1)
   '
 
   def initialize(req_name)
-    @req_name = req_name
-    requisition_file = "/opt/opennms-pris/requisitions/#{req_name}/requisition.properties"
-    props = JavaProperties.load(inspec.file(requisition_file))
+    puts "ehlo"
+    @requisition_name = req_name
+    requisition_file = "/opt/opennms-pris/requisitions/#{@requisition_name}/requisition.properties"
+    props = JavaProperties.parse(inspec.file(requisition_file).content)
     @source = props[:'source'].to_s
     @mapper = props[:'mapper'].to_s
     @source_properties = {}
     @mapper_properties = {}
     props.each do |k,v|
-      source_properties[k.to_s] = v if k.to_s.start_with?('source.')
-      mapper_properties[k.to_s] = v if k.to_s.start_with?('mapper.')
+      source_properties[k.to_s[7..-1]] = v if k.to_s.start_with?('source.')
+      mapper_properties[k.to_s[7..-1]] = v if k.to_s.start_with?('mapper.')
     end
     @script_file = []
     @script_file = props[:'script_file'].split(',') unless props[:'script_file'].nil?
   end
+
+  attr_reader :requisition_name
 
   attr_reader :source
 

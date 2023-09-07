@@ -27,9 +27,15 @@ suites:
       - recipe[yum-centos-ct::default]
       - recipe[pris_java::default]
       - recipe[pris::default]
+      - recipe[pris_test::http_source]
+      - recipe[pris_test::jdbc_source]
+      - recipe[pris_test::merge_source]
+      - recipe[pris_test::script_source]
+      - recipe[pris_test::xls_source]
     verifier:
       inspec_tests:
         - path: test/integration/default
+        - path: test/integration/xls_source
   - name: file_source
     run_list:
       - recipe[yum-centos-ct::default]
@@ -60,3 +66,16 @@ suites:
       - recipe[yum-centos-ct::default]
       - recipe[pris_java::default]
       - recipe[pris_test::xls_source]
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
+        - path: test/integration/xls_source
+  - name: edit_xls_source
+    run_list:
+      - recipe[yum-centos-ct::default]
+      - recipe[pris_java::default]
+      - recipe[pris_test::edit_xls_source]
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
+        - path: test/integration/edit_xls_source
