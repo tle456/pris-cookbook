@@ -1,0 +1,13 @@
+name: file_source
+title: create foo requisitions in PRIS with file source type
+maintainer: David Schlenk
+copyright: ConvergeOne
+copyright_email: dschlenk@convergeone.com
+license: Apache 2.0
+summary: create foo requisitions in PRIS with File source type
+version: 1.0.0
+supports:
+  - os-family: redhat
+depends:
+  - name: pris_requisition
+    path: test/integration/default

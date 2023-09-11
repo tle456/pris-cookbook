@@ -41,6 +41,10 @@ suites:
       - recipe[yum-centos-ct::default]
       - recipe[pris_java::default]
       - recipe[pris_test::file_source]
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
+        - path: test/integration/file_source
   - name: http_source
     run_list:
       - recipe[yum-centos-ct::default]
